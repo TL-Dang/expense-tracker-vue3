@@ -2,7 +2,7 @@
   <Header />
   <div class="container">
     <Balance :total="total" />
-    <IncomeExpenses />
+    <IncomeExpenses :income="+income" :expenses="+expenses"/>
     //passing 'transactions' array as a prop to TransactionList component
     <TransactionList :transactions="transactions" />
     <AddTransaction />
@@ -38,7 +38,7 @@ const total = computed(() => {
 //Get income
 const income = computed(() => {
   return transactions.value
-    .filter(() => transaction.amount > 0)
+    .filter((transaction) => transaction.amount > 0)
     .reduce((acc, transaction) => {
       return acc + transaction.amount;
     }, 0)
@@ -48,7 +48,7 @@ const income = computed(() => {
 //Get expenses
 const expenses = computed(() => {
   return transactions.value
-    .filter(() => transaction.amount < 0)
+    .filter((transaction) => transaction.amount < 0)
     .reduce((acc, transaction) => {
       return acc + transaction.amount;
     }, 0)
@@ -56,5 +56,5 @@ const expenses = computed(() => {
 });
 </script>
 
-<!-- Go to 39:00 
+<!-- Go to 45:00 
 https://www.youtube.com/watch?v=hNPwdOZ3qFU -->
