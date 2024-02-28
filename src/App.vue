@@ -1,11 +1,11 @@
 <template>
   <Header />
   <div class="container">
-    <Balance :total="total" />
-    <IncomeExpenses :income="+income" :expenses="+expenses"/>
+    <Balance :total="+total" />
+    <IncomeExpenses :income="+income" :expenses="+expenses" />
     //passing 'transactions' array as a prop to TransactionList component
     <TransactionList :transactions="transactions" />
-    <AddTransaction />
+    <AddTransaction @transactionSubmitted="handleTransactionSubmitted" />
   </div>
 </template>
 
@@ -54,6 +54,22 @@ const expenses = computed(() => {
     }, 0)
     .toFixed(2);
 });
+
+//Add transaction
+const handleTransactionSubmitted = (transactionData) => {
+  transactions.value.push({
+    id: generateUniqueId(),
+    text: transactionData.text,
+    amount: transactionData.amount,
+  });
+
+  console.log(generateUniqueId());
+};
+
+// Generate unique ID
+const generateUniqueId = () => {
+  return Math.floor(Math.random() * 1000000);
+};
 </script>
 
 <!-- Go to 45:00 
